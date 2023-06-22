@@ -24,7 +24,7 @@
 
 # Stage 1 - Install dependencies
 #@follow_tag(registry.redhat.io/ubi9/nodejs-18:1)
-FROM registry.access.redhat.com/ubi9/nodejs-18:1 AS deps
+FROM registry.access.redhat.com/ubi9/nodejs-18:1-53 AS deps
 USER 0
 
 # Env vars
@@ -43,7 +43,7 @@ RUN $YARN install --frozen-lockfile --network-timeout 600000 --ignore-scripts
 
 # Stage 2 - Build packages
 #@follow_tag(registry.redhat.io/ubi9/nodejs-18:1)
-FROM registry.access.redhat.com/ubi9/nodejs-18:1 AS build
+FROM registry.access.redhat.com/ubi9/nodejs-18:1-53 AS build
 USER 0
 
 # Env vars
