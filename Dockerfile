@@ -62,7 +62,7 @@ RUN $YARN build --filter=backend
 
 # Stage 3 - Build the actual backend image and install production dependencies
 #@follow_tag(registry.redhat.io/ubi9/nodejs-18-minimal:1)
-FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:1 AS runner
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:1-56 AS runner
 USER 0
 
 # Install gzip for tar and clean up
