@@ -17,9 +17,8 @@ export default async function createPlugin(
   const builder = await CatalogBuilder.create(env);
 
   const isOcmEnabled = env.config.getOptionalBoolean('enabled.ocm') || false;
-  // const isKeycloakEnabled =
-  //   env.config.getOptionalBoolean('enabled.keycloak') || false;
-  const isKeycloakEnabled = true;
+  const isKeycloakEnabled =
+    env.config.getOptionalBoolean('enabled.keycloak') || false;
   const isGithubEnabled =
     env.config.getOptionalBoolean('enabled.github') || false;
   const isGithubOrgEnabled =

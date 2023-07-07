@@ -55,7 +55,7 @@ export default async function createPlugin(
           async resolver({ result }, ctx) {
             const name = result.getHeader('x-forwarded-preferred-username');
             if (!name) {
-              throw new Error('Request did not contain a user');
+              return;
             }
 
             try {
