@@ -10,7 +10,7 @@ import { ManagedClusterProvider } from '@janus-idp/backstage-plugin-ocm-backend'
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 import { GitlabDiscoveryEntityProvider } from '@backstage/plugin-catalog-backend-module-gitlab';
-import { GitLabDiscoveryProcessor } from '../../../../plugins/catalog-backend-module-gitlab';
+import { GitLabDiscoveryProcessor } from '@backstage/plugin-catalog-backend-module-gitlab';
 
 export default async function createPlugin(
   env: PluginEnvironment,
@@ -100,8 +100,8 @@ export default async function createPlugin(
       logger: env.logger,
       // optional: alternatively, use scheduler with schedule defined in app-config.yaml
       schedule: env.scheduler.createScheduledTaskRunner({
-        frequency: { minutes: 30 },
-        timeout: { minutes: 3 },
+        frequency: { seconds: 10 },
+        timeout: { seconds: 60 },
       }),
       // optional: alternatively, use schedule
       scheduler: env.scheduler,
