@@ -39,6 +39,7 @@ RUN chmod +x $REMOTE_SOURCES_DIR/.yarn/releases/yarn-1.22.19.cjs
 # Remove all files except package.json
 RUN find packages -mindepth 2 -maxdepth 2 \! -name "package.json" -exec rm -rf {} \+
 
+RUN yarn add --cwd packages/backend @backstage/plugin-catalog-backend-module-gitlab
 RUN $YARN install --frozen-lockfile --network-timeout 600000 --ignore-scripts
 
 # Stage 2 - Build packages
