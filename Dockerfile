@@ -58,6 +58,7 @@ RUN chmod +x $REMOTE_SOURCES_DIR/.yarn/releases/yarn-1.22.19.cjs
 RUN git config --global --add safe.directory $REMOTE_SOURCES_DIR/
 RUN rm $REMOTE_SOURCES_DIR/app-config.yaml && mv $REMOTE_SOURCES_DIR/app-config.example.yaml $REMOTE_SOURCES_DIR/app-config.yaml
 
+RUN yarn add --cwd packages/backend @backstage/plugin-catalog-backend-module-gitlab
 RUN $YARN build --filter=backend
 
 # Stage 3 - Build the actual backend image and install production dependencies
