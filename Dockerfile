@@ -92,6 +92,7 @@ RUN tar xzf $REMOTE_SOURCES_DIR/bundle.tar.gz && rm $REMOTE_SOURCES_DIR/bundle.t
 COPY --chown=1001:1001 $REMOTE_SOURCES/app-config*.yaml $REMOTE_SOURCES_DIR/
 
 # Install production dependencies
+RUN yarn add --cwd packages/backend @backstage/plugin-catalog-backend-module-gitlab
 RUN $YARN install --frozen-lockfile --production --network-timeout 600000 --ignore-scripts && $YARN cache clean
 
 # The fix-permissions script is important when operating in environments that dynamically use a random UID at runtime, such as OpenShift.
