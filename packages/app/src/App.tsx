@@ -39,6 +39,7 @@ import { LearningPaths } from './components/learningPaths/LearningPathsPage';
 import { SearchPage } from './components/search/SearchPage';
 import { LighthousePage } from '@backstage/plugin-lighthouse';
 import { customTheme } from './themes/theme';
+import { ProxiedSignInPage } from '@backstage/core-components';
 
 const app = createApp({
   apis,
@@ -67,6 +68,9 @@ const app = createApp({
       ),
     },
   ],
+  components: {
+    SignInPage: (props) => <ProxiedSignInPage {...props} provider="oauth2Proxy" />,
+  },
 });
 
 // `routes` and every subsequent child needs to be static JSX, so the router can traverse the three without rendering.
