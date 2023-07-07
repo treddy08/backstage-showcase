@@ -15,18 +15,10 @@
  */
 
 import { Config } from '@backstage/config';
-import { AwsS3Integration } from './awsS3/AwsS3Integration';
-import { AzureIntegration } from './azure/AzureIntegration';
-import { BitbucketCloudIntegration } from './bitbucketCloud/BitbucketCloudIntegration';
-import { BitbucketIntegration } from './bitbucket/BitbucketIntegration';
-import { BitbucketServerIntegration } from './bitbucketServer/BitbucketServerIntegration';
-import { GerritIntegration } from './gerrit/GerritIntegration';
-import { GithubIntegration } from './github/GithubIntegration';
 import { GitLabIntegration } from './gitlab/GitLabIntegration';
 import { defaultScmResolveUrl } from './helpers';
 import { ScmIntegration, ScmIntegrationsGroup } from './types';
 import { ScmIntegrationRegistry } from './registry';
-import { GiteaIntegration } from './gitea';
 
 /**
  * The set of supported integrations.
@@ -34,18 +26,10 @@ import { GiteaIntegration } from './gitea';
  * @public
  */
 export interface IntegrationsByType {
-  awsS3: ScmIntegrationsGroup<AwsS3Integration>;
-  azure: ScmIntegrationsGroup<AzureIntegration>;
   /**
    * @deprecated in favor of `bitbucketCloud` and `bitbucketServer`
    */
-  bitbucket: ScmIntegrationsGroup<BitbucketIntegration>;
-  bitbucketCloud: ScmIntegrationsGroup<BitbucketCloudIntegration>;
-  bitbucketServer: ScmIntegrationsGroup<BitbucketServerIntegration>;
-  gerrit: ScmIntegrationsGroup<GerritIntegration>;
-  github: ScmIntegrationsGroup<GithubIntegration>;
   gitlab: ScmIntegrationsGroup<GitLabIntegration>;
-  gitea: ScmIntegrationsGroup<GiteaIntegration>;
 }
 
 /**
@@ -58,15 +42,7 @@ export class ScmIntegrations implements ScmIntegrationRegistry {
 
   static fromConfig(config: Config): ScmIntegrations {
     return new ScmIntegrations({
-      awsS3: AwsS3Integration.factory({ config }),
-      azure: AzureIntegration.factory({ config }),
-      bitbucket: BitbucketIntegration.factory({ config }),
-      bitbucketCloud: BitbucketCloudIntegration.factory({ config }),
-      bitbucketServer: BitbucketServerIntegration.factory({ config }),
-      gerrit: GerritIntegration.factory({ config }),
-      github: GithubIntegration.factory({ config }),
       gitlab: GitLabIntegration.factory({ config }),
-      gitea: GiteaIntegration.factory({ config }),
     });
   }
 
@@ -74,43 +50,8 @@ export class ScmIntegrations implements ScmIntegrationRegistry {
     this.byType = integrationsByType;
   }
 
-  get awsS3(): ScmIntegrationsGroup<AwsS3Integration> {
-    return this.byType.awsS3;
-  }
-
-  get azure(): ScmIntegrationsGroup<AzureIntegration> {
-    return this.byType.azure;
-  }
-
-  /**
-   * @deprecated in favor of `bitbucketCloud()` and `bitbucketServer()`
-   */
-  get bitbucket(): ScmIntegrationsGroup<BitbucketIntegration> {
-    return this.byType.bitbucket;
-  }
-
-  get bitbucketCloud(): ScmIntegrationsGroup<BitbucketCloudIntegration> {
-    return this.byType.bitbucketCloud;
-  }
-
-  get bitbucketServer(): ScmIntegrationsGroup<BitbucketServerIntegration> {
-    return this.byType.bitbucketServer;
-  }
-
-  get gerrit(): ScmIntegrationsGroup<GerritIntegration> {
-    return this.byType.gerrit;
-  }
-
-  get github(): ScmIntegrationsGroup<GithubIntegration> {
-    return this.byType.github;
-  }
-
   get gitlab(): ScmIntegrationsGroup<GitLabIntegration> {
     return this.byType.gitlab;
-  }
-
-  get gitea(): ScmIntegrationsGroup<GiteaIntegration> {
-    return this.byType.gitea;
   }
 
   list(): ScmIntegration[] {
@@ -126,9 +67,7 @@ export class ScmIntegrations implements ScmIntegrationRegistry {
 
     // Do not return deprecated integrations if there are other options
     if (candidates.length > 1) {
-      const filteredCandidates = candidates.filter(
-        x => !(x instanceof BitbucketIntegration),
-      );
+      const filteredCandidates = candidates;
       if (filteredCandidates.length !== 0) {
         candidates = filteredCandidates;
       }
