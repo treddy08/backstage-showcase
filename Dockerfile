@@ -39,7 +39,7 @@ RUN chmod +x $REMOTE_SOURCES_DIR/.yarn/releases/yarn-1.22.19.cjs
 # Remove all files except package.json
 RUN find packages -mindepth 2 -maxdepth 2 \! -name "package.json" -exec rm -rf {} \+
 
-RUN $YARN add @backstage/plugin-catalog-backend-module-gitlab
+RUN $YARN add --cwd packages/backend @backstage/plugin-catalog-backend-module-gitlab
 RUN $YARN install --frozen-lockfile --network-timeout 600000 --ignore-scripts
 
 # Stage 2 - Build packages
@@ -59,7 +59,7 @@ RUN chmod +x $REMOTE_SOURCES_DIR/.yarn/releases/yarn-1.22.19.cjs
 RUN git config --global --add safe.directory $REMOTE_SOURCES_DIR/
 RUN rm $REMOTE_SOURCES_DIR/app-config.yaml && mv $REMOTE_SOURCES_DIR/app-config.example.yaml $REMOTE_SOURCES_DIR/app-config.yaml
 
-RUN $YARN add @backstage/plugin-catalog-backend-module-gitlab
+RUN $YARN add --cwd packages/backend @backstage/plugin-catalog-backend-module-gitlab
 RUN $YARN build --filter=backend
 
 # Stage 3 - Build the actual backend image and install production dependencies
@@ -94,7 +94,7 @@ RUN tar xzf $REMOTE_SOURCES_DIR/bundle.tar.gz && rm $REMOTE_SOURCES_DIR/bundle.t
 COPY --chown=1001:1001 $REMOTE_SOURCES/app-config*.yaml $REMOTE_SOURCES_DIR/
 
 # Install production dependencies
-RUN $YARN add @backstage/plugin-catalog-backend-module-gitlab
+RUN $YARN add --cwd packages/backend @backstage/plugin-catalog-backend-module-gitlab
 RUN $YARN install --frozen-lockfile --production --network-timeout 600000 --ignore-scripts && $YARN cache clean
 
 # The fix-permissions script is important when operating in environments that dynamically use a random UID at runtime, such as OpenShift.
