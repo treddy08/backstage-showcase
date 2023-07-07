@@ -15,7 +15,15 @@
  */
 
 import { ScmIntegration, ScmIntegrationsGroup } from './types';
+import { AwsS3Integration } from './awsS3/AwsS3Integration';
+import { AzureIntegration } from './azure/AzureIntegration';
+import { BitbucketCloudIntegration } from './bitbucketCloud/BitbucketCloudIntegration';
+import { BitbucketIntegration } from './bitbucket/BitbucketIntegration';
+import { BitbucketServerIntegration } from './bitbucketServer/BitbucketServerIntegration';
+import { GerritIntegration } from './gerrit/GerritIntegration';
+import { GithubIntegration } from './github/GithubIntegration';
 import { GitLabIntegration } from './gitlab/GitLabIntegration';
+import { GiteaIntegration } from './gitea/GiteaIntegration';
 
 /**
  * Holds all registered SCM integrations, of all types.
@@ -24,10 +32,18 @@ import { GitLabIntegration } from './gitlab/GitLabIntegration';
  */
 export interface ScmIntegrationRegistry
   extends ScmIntegrationsGroup<ScmIntegration> {
+  awsS3: ScmIntegrationsGroup<AwsS3Integration>;
+  azure: ScmIntegrationsGroup<AzureIntegration>;
   /**
    * @deprecated in favor of `bitbucketCloud` and `bitbucketServer`
    */
+  bitbucket: ScmIntegrationsGroup<BitbucketIntegration>;
+  bitbucketCloud: ScmIntegrationsGroup<BitbucketCloudIntegration>;
+  bitbucketServer: ScmIntegrationsGroup<BitbucketServerIntegration>;
+  gerrit: ScmIntegrationsGroup<GerritIntegration>;
+  github: ScmIntegrationsGroup<GithubIntegration>;
   gitlab: ScmIntegrationsGroup<GitLabIntegration>;
+  gitea: ScmIntegrationsGroup<GiteaIntegration>;
   /**
    * Resolves an absolute or relative URL in relation to a base URL.
    *
