@@ -10,6 +10,7 @@ import { KeycloakOrgEntityProvider } from '@janus-idp/backstage-plugin-keycloak-
 import { ManagedClusterProvider } from '@janus-idp/backstage-plugin-ocm-backend';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
+import { GitlabDiscoveryEntityProvider } from '@backstage/plugin-catalog-backend-module-gitlab';
 
 export default async function createPlugin(
   env: PluginEnvironment,
@@ -92,9 +93,18 @@ export default async function createPlugin(
     });
   }
 
-  if (isGitlabEnabled) {
-    builder.addProcessor(new GitlabFillerProcessor(env.config));
-  }
+  builder.addEntityProvider(
+    ...GitlabDiscoveryEntityProvider.fromConfig(env.config, {
+      logger: env.logger,
+      // optional: alternatively, use scheduler with schedule defined in app-config.yaml
+      schedule: env.scheduler.createScheduledTaskRunner({
+        frequency: { minutes: 30 },
+        timeout: { minutes: 3 },
+      }),
+      // optional: alternatively, use schedule
+      scheduler: env.scheduler,
+    }),
+  );
 
   builder.setPlaceholderResolver('openapi', jsonSchemaRefPlaceholderResolver);
   builder.setPlaceholderResolver('asyncapi', jsonSchemaRefPlaceholderResolver);
