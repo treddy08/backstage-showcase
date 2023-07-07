@@ -23,8 +23,6 @@ export default async function createPlugin(
     env.config.getOptionalBoolean('enabled.github') || false;
   const isGithubOrgEnabled =
     env.config.getOptionalBoolean('enabled.githubOrg') || false;
-  const isGitlabEnabled =
-    env.config.getOptionalBoolean('enabled.gitlab') || false;
 
   if (isOcmEnabled) {
     builder.addEntityProvider(
