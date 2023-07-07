@@ -10,7 +10,7 @@ import { ManagedClusterProvider } from '@janus-idp/backstage-plugin-ocm-backend'
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 import { GitlabDiscoveryEntityProvider } from '@backstage/plugin-catalog-backend-module-gitlab';
-import { GitLabDiscoveryProcessor } from '@backstage/plugin-catalog-backend-module-gitlab';
+import { GitLabDiscoveryProcessor } from '../../../../plugins/catalog-backend-module-gitlab';
 
 export default async function createPlugin(
   env: PluginEnvironment,
