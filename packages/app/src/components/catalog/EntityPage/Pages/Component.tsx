@@ -66,6 +66,10 @@ const componentEntityPage = (componentType: 'service' | 'website') => (
       {cdContent}
     </EntityLayout.Route>
 
+    <EntityLayout.Route if={isQuayAvailable} path="/quay" title="Quay">
+      <QuayPage />
+    </EntityLayout.Route>
+
     <EntityLayout.Route path="/kubernetes" title="Kubernetes">
       <EntityKubernetesContent refreshIntervalMs={30000} />
     </EntityLayout.Route>
@@ -119,9 +123,6 @@ const componentEntityPage = (componentType: 'service' | 'website') => (
       {techdocsContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route if={isQuayAvailable} path="/quay" title="Quay">
-      <QuayPage />
-    </EntityLayout.Route>
   </EntityLayout>
 );
 
