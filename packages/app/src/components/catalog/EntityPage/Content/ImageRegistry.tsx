@@ -13,15 +13,6 @@ const ifImageRegistries: ((e: Entity) => boolean)[] = [
   isJfrogArtifactoryAvailable,
 ];
 
-export const serviceEntityPage = (
-  <EntityPageLayout>
-    // ...
-    <EntityLayout.Route if={isQuayAvailable} path="/quay" title="Quay">
-      <QuayPage />
-    </EntityLayout.Route>
-  </EntityPageLayout>
-);
-
 export const isImageRegistriesAvailable = (e: Entity) =>
   ifImageRegistries.some(f => f(e));
 
