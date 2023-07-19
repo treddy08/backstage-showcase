@@ -33,6 +33,7 @@ import {
   techdocsContent,
 } from '../Content';
 import { defaultEntityPage } from './DefaultEntity';
+import { isQuayAvailable, QuayPage } from '@janus-idp/backstage-plugin-quay';
 
 const componentEntityPage = (componentType: 'service' | 'website') => (
   <EntityLayout>
@@ -116,6 +117,10 @@ const componentEntityPage = (componentType: 'service' | 'website') => (
 
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route if={isQuayAvailable} path="/quay" title="Quay">
+      <QuayPage />
     </EntityLayout.Route>
   </EntityLayout>
 );
