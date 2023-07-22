@@ -9,7 +9,7 @@ import {
   isGithubActionsAvailable,
 } from '@backstage/plugin-github-actions';
 import {
-  EntityGitlabMergeRequestsTable,
+  // EntityGitlabMergeRequestsTable,
   isGitlabAvailable,
 } from '@immobiliarelabs/backstage-plugin-gitlab';
 import {
@@ -31,11 +31,11 @@ export const isCIsAvailable = (e: Entity) => ifCIs.some(f => f(e));
 export const ciContent = (
   <Grid container spacing={3}>
     <EntitySwitch>
-      <EntitySwitch.Case if={isGitlabAvailable}>
+      {/* <EntitySwitch.Case if={isGitlabAvailable}>
         <Grid item xs={12}>
           <EntityGitlabMergeRequestsTable />
         </Grid>
-      </EntitySwitch.Case>
+      </EntitySwitch.Case> */}
 
       <EntitySwitch.Case if={isTektonCIAvailable}>
         <Grid item xs={12}>

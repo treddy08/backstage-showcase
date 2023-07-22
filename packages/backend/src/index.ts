@@ -122,7 +122,11 @@ async function main() {
 
   const appEnv = useHotMemoize(module, () => createEnv('app'));
 
+  const ocmEnv = useHotMemoize(module, () => createEnv('ocm'));
+
   const apiRouter = Router();
+
+  apiRouter.use('/ocm', await ocm(ocmEnv));
 
   // Required plugins
   await addPlugin({ plugin: 'proxy', apiRouter, createEnv, router: proxy });
