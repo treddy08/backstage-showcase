@@ -8,7 +8,6 @@ import {
 import { EntityCatalogGraphCard } from '@backstage/plugin-catalog-graph';
 import { Grid } from '@mui/material';
 import React from 'react';
-import { type Entity } from '@backstage/catalog-model';
 
 import {
   ClusterAvailableResourceCard,
@@ -20,6 +19,48 @@ import { entityWarningContent } from '../Content/EntityWarning';
 
 export const resourcePage = (
   <EntityLayout>
+    <EntityLayout.Route path="/" title="Overview">
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          {entityWarningContent}
+        </Grid>
+        <EntitySwitch>
+          <EntitySwitch.Case if={isType('kubernetes-cluster')}>
+            <ClusterContextProvider>
+              <Grid container item direction="column" md={3}>
+                <Grid item>
+                  <EntityLinksCard />
+                </Grid>
+                <Grid item>
+                  <ClusterAvailableResourceCard />
+                </Grid>
+              </Grid>
+              <Grid container item direction="column" md={9}>
+                <Grid item>
+                  <ClusterInfoCard />
+                </Grid>
+                <Grid item>
+                  <EntityCatalogGraphCard variant="gridItem" height={400} />
+                </Grid>
+              </Grid>
+            </ClusterContextProvider>
+          </EntitySwitch.Case>
+          <EntitySwitch.Case>
+            <Grid item md={6}>
+              <EntityAboutCard variant="gridItem" />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <EntityCatalogGraphCard variant="gridItem" height={400} />
+            </Grid>
+
+            <Grid item md={6}>
+              <EntityHasSystemsCard variant="gridItem" />
+            </Grid>
+          </EntitySwitch.Case>
+        </EntitySwitch>
+      </Grid>
+    </EntityLayout.Route>
     <EntityLayout.Route path="/status" title="status">
       <EntitySwitch>
         <EntitySwitch.Case if={isType('kubernetes-cluster')}>
