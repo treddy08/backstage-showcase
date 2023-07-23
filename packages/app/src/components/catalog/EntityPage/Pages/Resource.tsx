@@ -61,5 +61,21 @@ export const resourcePage = (
         </EntitySwitch>
       </Grid>
     </EntityLayout.Route>
+    <EntityLayout.Route path="/status" title="status">
+      <EntitySwitch>
+        <EntitySwitch.Case if={isType('kubernetes-cluster')}>
+          <ClusterContextProvider>
+            <Grid container direction="column" xs={6}>
+              <Grid item>
+                <ClusterInfoCard />
+              </Grid>
+              <Grid item>
+                <ClusterAvailableResourceCard />
+              </Grid>
+            </Grid>
+          </ClusterContextProvider>
+        </EntitySwitch.Case>
+      </EntitySwitch>
+    </EntityLayout.Route>
   </EntityLayout>
 );
