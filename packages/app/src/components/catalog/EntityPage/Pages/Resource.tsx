@@ -17,6 +17,15 @@ import {
 import { isType } from '../../utils';
 import { entityWarningContent } from '../Content/EntityWarning';
 
+const isType = (types: string | string[]) => (entity: Entity) => {
+  if (!entity?.spec?.type) {
+    return false;
+  }
+  return typeof types === 'string'
+    ? entity?.spec?.type === types
+    : types.includes(entity.spec.type as string);
+};
+
 export const resourcePage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
