@@ -8,6 +8,7 @@ import {
 import { EntityCatalogGraphCard } from '@backstage/plugin-catalog-graph';
 import { Grid } from '@mui/material';
 import React from 'react';
+import { type Entity } from '@backstage/catalog-model';
 
 import {
   ClusterAvailableResourceCard,
